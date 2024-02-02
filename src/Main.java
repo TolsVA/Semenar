@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -132,11 +133,87 @@ public class Main {
         if (flag) { // Проверка валидности данных введенных пользованелем
             int scInt = scanner.nextInt();
             System.out.printf("%s, %d, %s\n", l, scInt, w);
-            scanner.close();
+//            scanner.close();
         }
 
         System.out.println("после");
 
+        char op = '/';
+        int a = 7, b = 8;
+        System.out.println(main.calculate(op, a, b));
+
+        System.out.println("Решение через switch");
+
+        System.out.println(main.calculateSwitch(op, a, b));
+
+
+
+        main.run(() -> System.out.println("Здесь был Пупка"));
+        Consumer<Object> print = System.out::println;
+        print.accept("Привет Пупка");
+        print.accept("Сам Пупенка");
+
+
+        System.out.println("Для создания массива введите числа через пробел");
+        scanner = new Scanner(System.in);
+        String[] strings = (scanner.nextLine()).split(" ");
+        int[] ints = Arrays.stream(strings).mapToInt(Integer::parseInt).toArray();
+
+        scanner.close();
+        int sum = 0;
+        for (int sd : ints){
+            sum += sd;
+            System.out.print(sd + " ");
+        }
+        System.out.println();
+        System.out.println(sum);
+    }
+
+    private void run(Runnable r) {r.run();}
+
+    @FunctionalInterface
+    private interface MyInterfaceCalculate<T> {
+        T arithmeticExpression(T a, T b);
+    }
+
+    private double mySuperMethodCalculate(MyInterfaceCalculate<Double> method, double a, double b){
+        return method.arithmeticExpression(a, b);
+    }
+
+    private double calculateSwitch(char op, double a, double b) {
+        double result = 0;
+        switch (op) {
+            case '+' -> result = mySuperMethodCalculate(Double::sum, a, b); //  mySuperMethodCalculate((m, n) -> m - n, a, b);
+            case '-' -> result = mySuperMethodCalculate((m, n) -> m - n, a, b);
+            case '*' -> result = mySuperMethodCalculate((m, n) -> m * n, a, b);
+            case '/' -> {
+                if (b != 0) result = mySuperMethodCalculate((m, n) -> m / n, a, b);
+                else System.out.println("Делить на ноль нельзя");
+            }
+            default -> System.out.printf("Некорректный оператор: '%s'\n", op);
+        }
+        return result;
+    }
+    private double calculate(char op, int a, int b) {
+        if(isOp(op)){
+            if(op == '+') return a + b;
+            if(op == '-') return a - b;
+            if(op == '/') {
+                if(b != 0) return (double) a / b;
+                System.out.println("Делить на ноль нельзя");
+            }
+            if(op == '*') return a * b;
+        } else {
+            System.out.printf("Некорректный оператор: '%s'\n", op);
+        }
+
+        return 0;
+    }
+
+    private boolean isOp(char op){
+        boolean isOp = false;
+        for (char thisOp : new char[] {'+', '-', '*', '/'}) isOp = isOp ^ (thisOp == op);
+        return isOp;
     }
 
     private int minus(int x, int y) {
