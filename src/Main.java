@@ -1,5 +1,6 @@
 import test1.Bar;
 import test1.Par;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +12,10 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class Main {
-
     public BinaryOperator<Integer> sum = Integer::sum;
     public BinaryOperator<Integer> min = (o1, o2) -> o1 - o2;
     public BinaryOperator<Integer> multi = (o1, o2) -> o1 * o2;
     public BinaryOperator<Integer> div = (o1, o2) -> o1 / o2;
-
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -42,7 +41,6 @@ public class Main {
                     .exponentiation(a, b)
                     .build();
 
-
             System.out.printf(
                     "Факториал числа %d -> %d\nВозведение числа %d в степень %d -> %d\n",
                     a,
@@ -59,7 +57,6 @@ public class Main {
             System.out.println(implAdder.add(5, 9, "2", 5));
             System.out.println(implAdder.multiply(Main::reverse, "Пупка"));
 
-
             main.test1(new Bar(), "Привет Медвед");
             main.test1(new Par());
         }
@@ -73,7 +70,6 @@ public class Main {
             List<Integer> filteredList2 = main.filterList(list2, x -> x >= 3);
             System.out.println(filteredList2); // => [3, 4]
         }
-
 
         {
             String b = "пухляк"; // пухляк
@@ -94,19 +90,15 @@ public class Main {
 
         {
             int g = 5, h = 8, j = 5;
-
             MyInterface[] method = {
                     (i, l, k) -> i * l * k,
                     (i, l, k) -> i * l - k
             };
 
-
             main.superMethodInterface(method[0], g, h, j);
             main.superMethodInterface((i, l, k) -> i * l - k, g, h, j);
-
             main.superMethodInterface1((m, n) -> m * n, g, h, j, 2, 3);
         }
-
 
         {
             Method method;
@@ -143,10 +135,7 @@ public class Main {
         System.out.println(main.calculate(op, a, b));
 
         System.out.println("Решение через switch");
-
         System.out.println(main.calculateSwitch(op, a, b));
-
-
 
         main.run(() -> System.out.println("Здесь был Пупка"));
         Consumer<Object> print = System.out::println;
@@ -157,16 +146,10 @@ public class Main {
         System.out.println("Для создания массива введите числа через пробел");
         scanner = new Scanner(System.in);
         String[] strings = (scanner.nextLine()).split(" ");
-        int[] ints = Arrays.stream(strings).mapToInt(Integer::parseInt).toArray();
+        int[] arr = Arrays.stream(strings).mapToInt(Integer::parseInt).toArray();
 
+        System.out.println(Arrays.toString(arr));
         scanner.close();
-        int sum = 0;
-        for (int sd : ints){
-            sum += sd;
-            System.out.print(sd + " ");
-        }
-        System.out.println();
-        System.out.println(sum);
     }
 
     private void run(Runnable r) {r.run();}
@@ -194,6 +177,7 @@ public class Main {
         }
         return result;
     }
+
     private double calculate(char op, int a, int b) {
         if(isOp(op)){
             if(op == '+') return a + b;
