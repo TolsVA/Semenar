@@ -2,9 +2,9 @@ package homevork_3;
 
 import java.util.Arrays;
 
-public class Hom_3 {
+public class Task_1 {
     public static void main(String[] args) {
-        Hom_3 hom = new Hom_3();
+        Task_1 hom = new Task_1();
         System.out.println(Arrays.toString(hom.mergeSort(new int[]{9, 4,23, 45, 67,3, 4, 6, 5})));
     }
 
