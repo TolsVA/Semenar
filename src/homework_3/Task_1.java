@@ -1,11 +1,11 @@
-package homevork_3;
+package homework_3;
 
 import java.util.Arrays;
 
 public class Task_1 {
     public static void main(String[] args) {
         Task_1 hom = new Task_1();
-        System.out.println(Arrays.toString(hom.mergeSort(new int[]{9, 4,23, 45, 67,3, 4, 6, 5})));
+        System.out.println(Arrays.toString(hom.mergeSort(new int[]{9, 4,23, 45, 67, 3, 4, 6})));
     }
 
     public int[] mergeSort(int[] arr){
